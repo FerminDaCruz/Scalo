@@ -1,77 +1,127 @@
 "use client";
 
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
-import { LockedColor } from "@/src/types/color";
+import { Family, LockedColor, TypeColor } from "@/src/types/color";
 import {
     getGrayColor,
     getRandomColor,
+    getRandomColorByFamily,
 } from "@/src/services/color/randomColorService";
 import { getComplementaryColor } from "@/src/services/color/accentColorService";
-import { ColorItem } from "./colorItem";
-import { generateScale } from "@/src/services/color/chromaScaleService";
+import {
+    generateGrayScale,
+    generateGrayScale2,
+    generateScale,
+} from "@/src/services/color/chromaScaleService";
+import ExamplePage from "../pages/exampleLandingResponsive";
+import PaletteBuilder from "./paletteBuilder";
+import Carrousel from "../pages/carrousel";
 
 type Props = {
-    initialLocked: LockedColor[];
+    primary: string;
+    secondary: string;
+    neutral: string;
 };
 
-export function Palette({ initialLocked }: Props) {
-    const [locked, setLocked] = useState(initialLocked);
+export function Palette({ primary, secondary, neutral }: Props) {
     const router = useRouter();
 
-    // togglear un item
-    function toggle(type: "primary" | "secondary" | "neutral") {
+    const [locks, setLocks] = useState<LockedColor[] | null>(null);
+
+    const [specificColor, setSpecificColor] = useState("");
+    const [generalColor, setGeneralColor] = useState<Family>(() => {
+        if (typeof window === "undefined") return "";
+        return (localStorage.getItem("generalColor") as Family) || "";
+    });
+
+    // Leer localStorage después de montar
+    useEffect(() => {
+        const data = localStorage.getItem("locks");
+        if (data) {
+            setLocks(JSON.parse(data));
+        } else {
+            setLocks(initialLocked); // primera vez
+        }
+    }, []);
+
+    // Guardar cuando cambien
+    useEffect(() => {
+        if (locks) {
+            localStorage.setItem("locks", JSON.stringify(locks));
+        }
+    }, [locks]);
+
+    useEffect(() => {
+        localStorage.setItem("generalColor", generalColor);
+    }, [generalColor]);
+
+    function toggle(type: TypeColor) {
         setLocked((prev) =>
             prev.map((x) => (x.type === type ? { ...x, locked: !x.locked } : x))
         );
     }
 
     function newPalette() {
-        // generate new colors respetando locks
-        const primary = locked.find((l) => l.type === "primary")!.locked
-            ? locked.find((l) => l.type === "primary")!.color
-            : getRandomColor();
+        const primaryLock = locked.find((l) => l.type === "primary")!;
+        const secondaryLock = locked.find((l) => l.type === "secondary")!;
+        const neutralLock = locked.find((l) => l.type === "neutral")!;
 
-        const secondary = locked.find((l) => l.type === "secondary")!.locked
-            ? locked.find((l) => l.type === "secondary")!.color
-            : getComplementaryColor(primary);
+        let newPrimary: string;
 
-        const neutral = locked.find((l) => l.type === "neutral")!.locked
-            ? locked.find((l) => l.type === "neutral")!.color
-            : getGrayColor(primary);
+        if (primaryLock.locked) {
+            newPrimary = primaryLock.color;
+        } else if (specificColor.startsWith("#") && specificColor.length >= 4) {
+            newPrimary = specificColor;
+        } else if (generalColor.trim().length > 0) {
+            newPrimary = getRandomColorByFamily(generalColor);
+        } else {
+            newPrimary = getRandomColor();
+        }
 
-        const slug = [primary, secondary, neutral]
-            .map((c) => c.replace("#", "").toLowerCase())
-            .join("-");
+        const newSecondary = secondaryLock.locked
+            ? secondaryLock.color
+            : getComplementaryColor(newPrimary);
 
-        router.push(
-            `/${slug}?locks=${locked
-                .map((l) => (l.locked ? "1" : "0"))
-                .join("")}`
+        const newNeutral = neutralLock.locked
+            ? neutralLock.color
+            : getGrayColor(newPrimary);
+
+        setLocked((prev) =>
+            prev.map((l) => {
+                if (l.type === "primary") return { ...l, color: newPrimary };
+                if (l.type === "secondary")
+                    return { ...l, color: newSecondary };
+                if (l.type === "neutral") return { ...l, color: newNeutral };
+                return l;
+            })
         );
     }
 
+    const primaryColorScale = generateScale(
+        locked.find((l) => l.type === "primary")!.color
+    );
+    const secondaryColorScale = generateScale(
+        locked.find((l) => l.type === "secondary")!.color
+    );
+    const neutralColorScale = generateGrayScale2(
+        locked.find((l) => l.type === "neutral")!.color
+    );
     return (
-        <div className="flex flex-col gap-10 items-center">
-            <div className="flex gap-6">
-                {locked.map((x) => {
-                    const normalized = `#${x.color}`;
-                    return (
-                        <ColorItem
-                            key={x.type}
-                            type={x.type}
-                            color={normalized}
-                            scale={generateScale(normalized)}
-                            locked={x.locked}
-                            onToggle={() => toggle(x.type)}
-                        />
-                    );
-                })}
-            </div>
-
-            <button onClick={newPalette} className="px-4 py-2 border rounded">
-                Generar otra paleta
-            </button>
+        <div className="h-full w-full flex flex-col justify-center items-center ">
+            <PaletteBuilder
+                locked={locked}
+                toggle={toggle}
+                generalColor={generalColor}
+                setGeneralColor={setGeneralColor}
+                setSpecificColor={setSpecificColor}
+                newPalette={newPalette}
+            />
+            <Carrousel
+                primary={primaryColorScale}
+                secondary={secondaryColorScale}
+                neutral={neutralColorScale}
+            />
         </div>
     );
 }

@@ -1,0 +1,25 @@
+<svg width="240" height="240" viewBox="0 0 240 240" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M240 120C240 53.7258 186.274 0 120 0C53.7258 0 0 53.7258 0 120H240Z" fill="#ED1F0C"/>
+<mask id="mask0_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="81" y="120" width="78" height="118">
+<rect x="81" y="120" width="78" height="118" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_3_89)">
+<circle cx="120" cy="120" r="120" fill="#ED1F0C"/>
+</g>
+<mask id="mask1_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="1" y="120" width="78" height="110">
+<rect x="1" y="120" width="78" height="110" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask1_3_89)">
+<circle cx="120" cy="120" r="120" fill="#FA5E3F"/>
+</g>
+<mask id="mask2_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="160" y="120" width="78" height="110">
+<rect x="160" y="120" width="78" height="110" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask2_3_89)">
+<circle cx="120" cy="120" r="120" fill="#89200F"/>
+</g>
+<circle cx="120" cy="120" r="118" stroke="white" stroke-width="4"/>
+<line x1="1" y1="120" x2="239" y2="120" stroke="white" stroke-width="4"/>
+<line x1="80" y1="120" x2="80" y2="230" stroke="white" stroke-width="4"/>
+<line x1="160" y1="120" x2="160" y2="230" stroke="white" stroke-width="4"/>
+</svg>

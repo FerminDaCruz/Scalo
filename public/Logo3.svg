@@ -1,0 +1,42 @@
+<svg width="249" height="248" viewBox="0 0 249 248" fill="none" xmlns="http://www.w3.org/2000/svg">
+<path d="M244 123C244 56.7258 190.274 3 124 3C57.7258 3 4 56.7258 4 123H244Z" fill="#ED1F0C"/>
+<rect x="5" y="123" width="238" height="12" fill="#ED1F0C"/>
+<mask id="mask0_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="82" y="136" width="85" height="112">
+<rect x="82" y="136" width="85" height="112" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask0_3_89)">
+<mask id="mask1_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="85" y="123" width="78" height="118">
+<rect x="85" y="123" width="78" height="118" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask1_3_89)">
+<circle cx="124" cy="123" r="120" fill="#ED1F0C"/>
+</g>
+</g>
+<mask id="mask2_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="0" y="136" width="85" height="101">
+<rect y="136" width="85" height="101" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask2_3_89)">
+<mask id="mask3_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="5" y="123" width="78" height="110">
+<rect x="5" y="123" width="78" height="110" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask3_3_89)">
+<circle cx="124" cy="123" r="120" fill="#FA5E3F"/>
+</g>
+</g>
+<mask id="mask4_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="164" y="136" width="85" height="101">
+<rect x="164" y="136" width="85" height="101" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask4_3_89)">
+<mask id="mask5_3_89" style="mask-type:alpha" maskUnits="userSpaceOnUse" x="164" y="123" width="78" height="110">
+<rect x="164" y="123" width="78" height="110" fill="#D9D9D9"/>
+</mask>
+<g mask="url(#mask5_3_89)">
+<circle cx="124" cy="123" r="120" fill="#89200F"/>
+</g>
+</g>
+<circle cx="124" cy="123" r="118" stroke="white" stroke-width="4"/>
+<line x1="5" y1="137" x2="243" y2="137" stroke="white" stroke-width="4"/>
+<line x1="84" y1="135" x2="84" y2="235" stroke="white" stroke-width="4"/>
+<line x1="164" y1="135" x2="164" y2="235" stroke="white" stroke-width="4"/>
+<circle cx="124" cy="124" r="122" stroke="#141414" stroke-width="4"/>
+</svg>
