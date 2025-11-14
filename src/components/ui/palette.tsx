@@ -19,42 +19,23 @@ import PaletteBuilder from "./paletteBuilder";
 import Carrousel from "../pages/carrousel";
 
 type Props = {
-    primary: string;
-    secondary: string;
-    neutral: string;
+    initialLocked: LockedColor[];
 };
 
-export function Palette({ primary, secondary, neutral }: Props) {
+export function Palette({ initialLocked }: Props) {
+    const [locked, setLocked] = useState(initialLocked);
+    const [specificColor, setSpecificColor] = useState("");
+    const [generalColor, setGeneralColor] = useState<Family>("");
     const router = useRouter();
 
-    const [locks, setLocks] = useState<LockedColor[] | null>(null);
-
-    const [specificColor, setSpecificColor] = useState("");
-    const [generalColor, setGeneralColor] = useState<Family>(() => {
-        if (typeof window === "undefined") return "";
-        return (localStorage.getItem("generalColor") as Family) || "";
-    });
-
-    // Leer localStorage después de montar
     useEffect(() => {
-        const data = localStorage.getItem("locks");
-        if (data) {
-            setLocks(JSON.parse(data));
-        } else {
-            setLocks(initialLocked); // primera vez
-        }
+        queueMicrotask(() => {
+            const saved = localStorage.getItem("generalColor") as Family;
+            if (saved) setGeneralColor(saved);
+        });
     }, []);
 
-    // Guardar cuando cambien
-    useEffect(() => {
-        if (locks) {
-            localStorage.setItem("locks", JSON.stringify(locks));
-        }
-    }, [locks]);
-
-    useEffect(() => {
-        localStorage.setItem("generalColor", generalColor);
-    }, [generalColor]);
+    // Función para generar un color en base a rojo, azul, amarrillo, etc: getRandomColorByFamily()
 
     function toggle(type: TypeColor) {
         setLocked((prev) =>
@@ -63,38 +44,34 @@ export function Palette({ primary, secondary, neutral }: Props) {
     }
 
     function newPalette() {
-        const primaryLock = locked.find((l) => l.type === "primary")!;
-        const secondaryLock = locked.find((l) => l.type === "secondary")!;
-        const neutralLock = locked.find((l) => l.type === "neutral")!;
+        let primary;
 
-        let newPrimary: string;
-
-        if (primaryLock.locked) {
-            newPrimary = primaryLock.color;
+        if ((primary = locked.find((l) => l.type === "primary")!.locked)) {
+            primary = locked.find((l) => l.type === "primary")!.color;
         } else if (specificColor.startsWith("#") && specificColor.length >= 4) {
-            newPrimary = specificColor;
+            primary = specificColor;
         } else if (generalColor.trim().length > 0) {
-            newPrimary = getRandomColorByFamily(generalColor);
+            primary = getRandomColorByFamily(generalColor);
         } else {
-            newPrimary = getRandomColor();
+            primary = getRandomColor();
         }
 
-        const newSecondary = secondaryLock.locked
-            ? secondaryLock.color
-            : getComplementaryColor(newPrimary);
+        const secondary = locked.find((l) => l.type === "secondary")!.locked
+            ? locked.find((l) => l.type === "secondary")!.color
+            : getComplementaryColor(primary);
 
-        const newNeutral = neutralLock.locked
-            ? neutralLock.color
-            : getGrayColor(newPrimary);
+        const neutral = locked.find((l) => l.type === "neutral")!.locked
+            ? locked.find((l) => l.type === "neutral")!.color
+            : getGrayColor(primary);
 
-        setLocked((prev) =>
-            prev.map((l) => {
-                if (l.type === "primary") return { ...l, color: newPrimary };
-                if (l.type === "secondary")
-                    return { ...l, color: newSecondary };
-                if (l.type === "neutral") return { ...l, color: newNeutral };
-                return l;
-            })
+        const slug = [primary, secondary, neutral]
+            .map((c) => c.replace("#", "").toLowerCase())
+            .join("-");
+
+        router.push(
+            `/${slug}?locks=${locked
+                .map((l) => (l.locked ? "1" : "0"))
+                .join("")}`
         );
     }
 
@@ -107,6 +84,7 @@ export function Palette({ primary, secondary, neutral }: Props) {
     const neutralColorScale = generateGrayScale2(
         locked.find((l) => l.type === "neutral")!.color
     );
+
     return (
         <div className="h-full w-full flex flex-col justify-center items-center ">
             <PaletteBuilder
