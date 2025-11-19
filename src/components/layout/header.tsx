@@ -1,4 +1,4 @@
-import { CircleQuestionMark, FileQuestion } from "lucide-react";
+import { CircleQuestionMark } from "lucide-react";
 import Image from "next/image";
 
 export default function Header() {
@@ -6,7 +6,7 @@ export default function Header() {
         <header className="h-[8vh] flex justify-between items-center px-3 max-w-[1250px] mx-auto">
             <div className="flex items-center gap-2">
                 <Image
-                    src="@/logo.svg"
+                    src="/Logo.svg"
                     alt="Logo"
                     width={100}
                     height={100}

@@ -21,9 +21,9 @@ export const metadata: Metadata = {
     description:
         "Scalo es una herramienta rápida y visual para crear paletas de colores, escalas armonizadas y sistemas cromáticos listos para usar en diseño, UI y desarrollo web.",
     icons: {
-        icon: "/logo.png",
-        shortcut: "/logo.png",
-        apple: "/logo.png",
+        icon: "/Logo.png",
+        shortcut: "/Logo.png",
+        apple: "/Logo.png",
     },
     openGraph: {
         title: "Scalo — Generador de paletas y escalas de color",
@@ -33,7 +33,7 @@ export const metadata: Metadata = {
         siteName: "Scalo",
         images: [
             {
-                url: "/logo.png",
+                url: "Logo.png",
                 width: 1200,
                 height: 630,
                 alt: "Scalo — Generador de paletas de colores",
@@ -47,7 +47,7 @@ export const metadata: Metadata = {
         title: "Scalo — Generador de paletas y escalas de color",
         description:
             "Crea paletas y escalas de color con armonía profesional. Exportá tus colores listos para desarrollo.",
-        images: ["/logo.png"],
+        images: ["/Logo.png"],
     },
     keywords: [
         "generador de colores",
