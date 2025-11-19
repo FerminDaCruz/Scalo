@@ -1,17 +1,7 @@
 "use client";
 
 import { useState } from "react";
-import {
-    Check,
-    CheckCircle,
-    Circle,
-    Contrast,
-    Copy,
-    Lock,
-    Slash,
-    Unlock,
-    X,
-} from "lucide-react";
+import { Contrast, Copy, Lock, Slash, Unlock, X } from "lucide-react";
 import { WCAGMatrix } from "@/src/types/color";
 
 type Props = {

@@ -32,5 +32,5 @@ export function generateGrayScale2(baseColor: string) {
     const darkPart = chroma.scale([baseColor, "black"]).mode("lab").colors(6);
 
     // saco blanco puro y el base repetido
-    return [...lightPart.slice(1), ...darkPart.slice(1)];
+    return [...lightPart.slice(1), ...darkPart.slice(1, -1)];
 }

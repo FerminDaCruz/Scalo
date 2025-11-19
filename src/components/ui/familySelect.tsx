@@ -32,12 +32,16 @@ export default function FamilySelect({
                 localStorage.setItem("generalColor", real);
             }}
         >
-            <SelectTrigger className="w-30 pl-4 bg-neutral-900 text-white border-neutral-700 capitaliz text-center rounded-full">
+            <SelectTrigger className="w-30 pl-4 bg-neutral-900! text-white border-neutral-700 capitaliz text-center rounded-full capitalize">
                 <SelectValue placeholder="Elige un color" />
             </SelectTrigger>
             <SelectContent>
                 {displayOptions.map((o) => (
-                    <SelectItem key={o.value} value={o.value}>
+                    <SelectItem
+                        key={o.value}
+                        value={o.value}
+                        className="capitalize"
+                    >
                         {o.label}
                     </SelectItem>
                 ))}

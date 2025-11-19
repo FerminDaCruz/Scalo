@@ -1,13 +1,19 @@
 import type { Metadata } from "next";
-import { Roboto } from "next/font/google";
+import { Roboto, Plus_Jakarta_Sans } from "next/font/google";
 import "./globals.css";
 import Header from "@/src/components/layout/header";
-import Footer from "@/src/components/layout/footer";
 
 const roboto = Roboto({
     variable: "--font-roboto",
     subsets: ["latin"],
     weight: ["400", "500", "600", "700"], // 600 = semi bold
+});
+
+const plusJakartaSans = Plus_Jakarta_Sans({
+    variable: "--font-plus-jakarta",
+    subsets: ["latin"],
+    weight: ["400", "500", "600", "700"], // 600 = semi bold
+    display: "swap",
 });
 
 export const metadata: Metadata = {};

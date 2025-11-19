@@ -94,6 +94,9 @@ export function Palette({ initialLocked }: Props) {
                 setGeneralColor={setGeneralColor}
                 setSpecificColor={setSpecificColor}
                 newPalette={newPalette}
+                primary={primaryColorScale}
+                secondary={secondaryColorScale}
+                neutral={neutralColorScale}
             />
             <Carrousel
                 primary={primaryColorScale}
