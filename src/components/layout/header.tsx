@@ -6,7 +6,7 @@ export default function Header() {
         <header className="h-[8vh] flex justify-between items-center px-3 max-w-[1250px] mx-auto">
             <div className="flex items-center gap-2">
                 <Image
-                    src="/logo.svg"
+                    src="@/logo.svg"
                     alt="Logo"
                     width={100}
                     height={100}
