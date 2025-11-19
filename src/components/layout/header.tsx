@@ -22,7 +22,7 @@ export default function Header() {
                 </div>
             </div>
 
-            <div className="flex items-center justify-center gap-2">
+            <div className="hidden items-center justify-center gap-2 ">
                 <CircleQuestionMark size={20} />
                 <p>Como usar</p>
             </div>
